@@ -3,6 +3,7 @@ package com.liu.security.aop;
 import com.liu.security.annotation.HasPermission;
 import com.liu.security.model.Permission;
 import com.liu.security.model.User;
+import com.liu.security.util.HttpRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,8 +26,7 @@ public class PermissionAop {
     @Around("@annotation(com.liu.security.annotation.HasPermission)")
     public Object before(ProceedingJoinPoint point){
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = HttpRequest.getRequest();
         HttpSession session =request.getSession();
         User user =(User) session.getAttribute("user");
         if(user == null){

@@ -13,6 +13,7 @@ public class User {
     @NotNull
     private String password;
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
     public int getId() {
         return id;
