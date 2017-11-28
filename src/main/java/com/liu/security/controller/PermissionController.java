@@ -5,6 +5,9 @@ import com.liu.security.dao.RoleDao;
 import com.liu.security.model.Permission;
 import com.liu.security.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +22,17 @@ public class PermissionController {
 
     @Autowired
     private RoleDao roleDao;
+
+    @RequestMapping("/findAll")
+    public Object findAll(int page, int size, String order){
+        Sort sort = new Sort(Sort.Direction.DESC, order);
+        Pageable pageable = new PageRequest(page,size,sort);
+        return permissionDao.findAll(pageable);
+    }
+    @RequestMapping("/delete")
+    public void delete(int id){
+        permissionDao.delete(id);
+    }
 
     @RequestMapping("/addAll")
     public void addAll(){

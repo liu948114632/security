@@ -26,8 +26,7 @@ public class RoleController {
     public Object list(int page, int size){
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(page, size, sort);
-        Page<Role> all = roleDao.findAll(pageable);
-        return all;
+        return roleDao.findAll(pageable);
     }
     @RequestMapping("/find")
     public Object findById(int id){
